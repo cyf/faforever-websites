@@ -2,13 +2,12 @@ import { basePath, pageSize } from "@/constants";
 import { Release } from "@/types/github";
 const headers = { "Content-Type": "application/json" };
 
-export async function latestRelease() {
-  const resp = await fetch(`${basePath}/api/releases/latest/`, {
+export async function getLatestRelease() {
+  const resp = await fetch(`${basePath}/backend/releases/github/latest/`, {
     method: "GET",
     headers,
     // https://nextjs.org/docs/app/building-your-application/caching
     cache: "no-store",
-    next: { revalidate: 0 },
   });
 
   if (!resp.ok) {
@@ -27,13 +26,12 @@ export async function getReleases(
   timestamp: number;
 } | null> {
   const resp = await fetch(
-    `${basePath}/api/releases/list/?page=${page}&page_size=${page_size}`,
+    `${basePath}/backend/releases/github/list/?page=${page}&page_size=${page_size}`,
     {
       method: "GET",
       headers,
       // https://nextjs.org/docs/app/building-your-application/caching
       cache: "no-store",
-      next: { revalidate: 0 },
     },
   );
 

@@ -16,7 +16,7 @@ export async function generateMetadata({
     description: `${
       params.lng === "en" ? "Blog" : "博客"
     } - 童话镇里一枝花, 人美歌甜陈一发.`,
-    metadataBase: new URL("https://chenyifaer.com"),
+    metadataBase: new URL("https://chenyifaer.com/faforever"),
     icons: {
       icon: `${basePath}/logo.png`,
     },

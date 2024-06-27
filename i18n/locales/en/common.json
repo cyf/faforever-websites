@@ -1,5 +1,7 @@
 {
   "latest": "Latest Version",
+  "beta": "Beta",
+  "store": "Store",
   "load-more": "Load More",
   "more-versions": "More versions"
 }

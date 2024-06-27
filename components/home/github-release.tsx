@@ -1,44 +1,65 @@
 import { useEffect, useMemo, useState } from "react";
 import Link from "next/link";
 import Balancer from "react-wrap-balancer";
+import {
+  Android,
+  Microsoft,
+  IOS,
+  MacOS,
+  Linux,
+} from "@/components/shared/icons";
 import GitHubPkg from "@/components/home/github-pkg";
-import { Apple, Linux, Microsoft } from "@/components/shared/icons";
 import { platforms } from "@/constants";
-import { latestRelease } from "@/request";
+import { getReleases } from "@/request";
 import { useTranslation } from "@/i18n/client";
 import type { LngProps } from "@/types/i18next-lng";
 import type { Asset, Release } from "@/types/github";
-import type { SystemOS } from "@/types/common";
+import type { ExtType, SystemOS } from "@/types/common";
 
-export default function GitHubRelease({ lng }: LngProps) {
+export default function GithubRelease({ lng }: LngProps) {
   const { t } = useTranslation(lng, "common");
   const [loading, setLoading] = useState<boolean>(false);
   const [data, setData] = useState<Release>({});
   const [error, setError] = useState<any>(null);
 
   const assets = useMemo(() => {
-    if (data) {
-      return (
-        data.assets?.filter(
-          ({ name }) => !(name?.includes("x86_64") || name?.endsWith(".sig")),
-        ) || []
-      );
+    if (data.assets && data.assets.length) {
+      return data.assets;
     }
-    return [];
-  }, [data]);
 
-  const { macos, windows, linux } = useMemo(() => {
+    return [];
+  }, [data.assets]);
+
+  const tag_name = useMemo(() => {
+    return data.tag_name;
+  }, [data.tag_name]);
+
+  const { ios, android, macos, windows, linux } = useMemo(() => {
     const packages: Record<SystemOS, Asset[]> = {
+      ios: [],
+      android: [],
       macos: [],
       windows: [],
       linux: [],
     };
-    Object.keys(platforms).forEach((key: string) => {
+    Object.keys(platforms).forEach((platform: string) => {
       const matcher = (name: string) =>
-        platforms[key as SystemOS].some((platform: string) =>
-          name.endsWith(platform),
-        );
-      packages[key as SystemOS] =
+        platforms[platform as SystemOS].some((ext: ExtType) => {
+          // 如果是字符串, 直接判断文件后缀
+          if (typeof ext === "string") {
+            return name.endsWith(ext);
+          } else {
+            // 如果不是字符串类型, 则根据include的值来判断
+            // 1. 如果为true, 判断文件后缀和系统类型
+            // 2. 如果为false, 直接判断文件后缀
+            const include = ext?.include;
+            const extName = ext?.name;
+            return include
+              ? name.endsWith(extName) && name.includes(platform)
+              : name.endsWith(extName);
+          }
+        });
+      packages[platform as SystemOS] =
         assets.filter(({ name }) => name && matcher(name)) || [];
     });
     return packages;
@@ -46,19 +67,19 @@ export default function GitHubRelease({ lng }: LngProps) {
 
   const loadData = () => {
     setLoading(true);
-    latestRelease()
+    getReleases(1, 1)
       .then((res) => {
         setLoading(false);
         if (res?.code === 0) {
-          setData(res?.data || {});
+          setData(res?.data?.[0] || {});
         } else {
           setError(res?.msg);
         }
       })
       .catch((error) => {
+        console.error(error);
         setLoading(false);
         setError(error.message || error.toString());
-        console.error(error);
       });
   };
 
@@ -66,25 +87,53 @@ export default function GitHubRelease({ lng }: LngProps) {
     loadData();
   }, []);
 
+  const disabled = useMemo(() => {
+    if (loading) return true;
+
+    return !!error;
+  }, [loading, error]);
+
   return (
     <>
       <div className="mt-10 grid w-full max-w-screen-xl animate-fade-up xl:px-0">
         <div className="flex items-center justify-center">
-          <div className="grid w-full grid-cols-1 gap-5 px-10 sm:grid-cols-2 sm:px-10 md:grid-cols-3">
+          <div className="grid w-full grid-cols-1 gap-5 px-10 sm:grid-cols-2 sm:px-10 md:grid-cols-4">
             <GitHubPkg
               lng={lng}
-              disabled={loading || error || !macos.length}
+              disabled={disabled || !android.length}
+              assets={android}
+              wrapperClassName="border border-gray-300 hover:border-gray-800 shadow-md"
+            >
+              <Android className="h-7 w-7" />
+              <p>
+                <span className="sm:inline-block">Android</span>
+              </p>
+            </GitHubPkg>
+            <GitHubPkg
+              lng={lng}
+              disabled={disabled || !ios.length}
+              assets={ios}
+              wrapperClassName="border border-gray-300 hover:border-gray-800 shadow-md"
+            >
+              <IOS className="h-7 w-7" />
+              <p>
+                <span className="sm:inline-block">iOS</span>
+              </p>
+            </GitHubPkg>
+            <GitHubPkg
+              lng={lng}
+              disabled={disabled || !macos.length}
               assets={macos}
               wrapperClassName="border border-gray-300 hover:border-gray-800 shadow-md"
             >
-              <Apple className="h-7 w-7" />
+              <MacOS className="h-7 w-7" />
               <p>
                 <span className="sm:inline-block">macOS</span>
               </p>
             </GitHubPkg>
             <GitHubPkg
               lng={lng}
-              disabled={loading || error || !windows.length}
+              disabled={disabled || !windows.length}
               assets={windows}
               wrapperClassName="border border-gray-300 hover:border-gray-800 shadow-md"
             >
@@ -95,7 +144,7 @@ export default function GitHubRelease({ lng }: LngProps) {
             </GitHubPkg>
             <GitHubPkg
               lng={lng}
-              disabled={loading || error || !linux.length}
+              disabled={disabled || !linux.length}
               assets={linux}
               wrapperClassName="border border-gray-300 hover:border-gray-800 shadow-md"
             >
@@ -112,15 +161,15 @@ export default function GitHubRelease({ lng }: LngProps) {
         style={{ animationDelay: "0.25s", animationFillMode: "forwards" }}
       >
         <Balancer>
-          {data?.tag_name && (
+          {tag_name && (
             <>
               {t("latest")}:{" "}
               <Link
-                className="text-[#0a60ff]"
-                href={`https://github.com/cyf/faforever/releases/tag/${data?.tag_name}`}
+                className="text-[#3e8fc8]"
+                href={`https://github.com/cyf/faforever-flutter/releases/tag/${tag_name}`}
                 target="_blank"
               >
-                {data?.tag_name}
+                {tag_name}
               </Link>
             </>
           )}

@@ -15,7 +15,7 @@ function Footer(props: LngProps) {
       {/*  {t("footer")}{" "}*/}
       {/*  <a*/}
       {/*    className="font-medium text-gray-800 underline transition-colors dark:text-white/90"*/}
-      {/*    href="https://github.com/cyf/faforever"*/}
+      {/*    href="https://github.com/cyf/faforever-flutter"*/}
       {/*    target="_blank"*/}
       {/*    rel="noopener noreferrer"*/}
       {/*  >*/}
@@ -41,7 +41,10 @@ function Footer(props: LngProps) {
       </p>
       <span className="mt-2 flex flex-wrap items-center justify-center text-sm text-gray-500 dark:text-gray-400 sm:text-center">
         © {`2023${fullYear === 2023 ? "" : `-${fullYear}`}`}&nbsp;
-        <a href="https://www.chenyifaer.com" className="hover:underline">
+        <a
+          href="https://www.chenyifaer.com/faforever"
+          className="hover:underline"
+        >
           {th("title")}
         </a>
         . {t("copyright")}&nbsp;

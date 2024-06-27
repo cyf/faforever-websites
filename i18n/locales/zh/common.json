@@ -1,5 +1,7 @@
 {
   "latest": "最新版本",
+  "beta": "测试版",
+  "store": "应用商店",
   "load-more": "加载更多",
   "more-versions": "更多版本"
 }

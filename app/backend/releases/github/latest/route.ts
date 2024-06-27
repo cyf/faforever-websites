@@ -1,6 +1,5 @@
 import httpStatus from "http-status";
 import github from "@/lib/github";
-import { NextResponse } from "next/server";
 
 // https://nextjs.org/docs/app/api-reference/file-conventions/route-segment-config
 export const dynamic = "force-dynamic";
@@ -13,18 +12,19 @@ export async function GET() {
       repo: process.env.GH_REPO,
     });
 
-    return NextResponse.json(
+    return Response.json(
       { code: 0, data: latestRelease.data, timestamp: Date.now() },
       { status: httpStatus.OK },
     );
   } catch (error: any) {
-    return NextResponse.json(
+    const code = error?.status || httpStatus.INTERNAL_SERVER_ERROR;
+    return Response.json(
       {
-        code: -1,
-        error: error.message || error.toString(),
+        code,
+        msg: error.message || error.toString(),
         timestamp: Date.now(),
       },
-      { status: httpStatus.INTERNAL_SERVER_ERROR },
+      { status: code },
     );
   }
 }
