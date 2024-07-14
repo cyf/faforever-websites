@@ -1,19 +1,29 @@
-import { ExtType, SystemOS } from "@/types/common";
+import { SystemExtensions, SystemOSKeys } from "@/types/common";
 
 export const cacheLngKey: string = "__faforever_website_lng__";
 export const cacheThemeKey: string = "__faforever_website_theme__";
+
 export const basePath =
   process.env.NEXT_PUBLIC_VERCEL_ENV === "production" ? "/faforever" : "";
 export const domain =
   process.env.NODE_ENV === "production"
     ? `https://chenyifaer.com${basePath}`
     : `http://localhost:3000${basePath}`;
-export const platforms: Record<SystemOS, ExtType[]> = {
+
+export const platforms: SystemOSKeys[] = [
+  "ios",
+  "android",
+  "macos",
+  "windows",
+  "linux",
+];
+
+export const systemExtensions: SystemExtensions = {
   ios: [".ipa"],
   android: [".apk", ".aab"],
   macos: [
     ".dmg",
-    ".pkg",
+    { name: ".pkg", exclude: "appstore" },
     { name: ".zip", include: true },
     { name: ".tar.gz", include: true },
   ],
@@ -28,5 +38,6 @@ export const platforms: Record<SystemOS, ExtType[]> = {
     { name: ".tar.gz", include: true },
   ],
 };
+
 export const pageSize: number = 10;
 export const sitemapUrls = ["release"];
