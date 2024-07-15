@@ -202,7 +202,7 @@ export default function GithubRelease({ lng }: LngProps) {
               {t("latest")}:{" "}
               <Link
                 className="text-[#3e8fc8]"
-                href={`https://github.com/cyf/faforever-flutter/releases/tag/${tag_name}`}
+                href={`https://github.com/cyf/faforever/releases/tag/${tag_name}`}
                 target="_blank"
               >
                 {tag_name}
