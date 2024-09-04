@@ -9,6 +9,15 @@ const nextConfig = {
   trailingSlash: true,
   reactStrictMode: true,
   swcMinify: true,
+  async redirects() {
+    return [
+      {
+        source: "/issues",
+        destination: "https://github.com/cyf/faforever/issues",
+        permanent: false,
+      },
+    ];
+  },
   images: {
     remotePatterns: [
       { hostname: "lh3.googleusercontent.com" },
