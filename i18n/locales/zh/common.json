@@ -1,7 +1,12 @@
 {
+  "slogan": "一款替代 Synology DS Audio 客户端的第三方音乐播放器。",
+  "get": "获取FaForever",
+  "comments": "在全球范围内被提及",
   "latest": "最新版本",
   "beta": "测试版",
   "store": "应用商店",
   "load-more": "加载更多",
-  "more-versions": "更多版本"
+  "more-versions": "更多版本",
+  "features": "特点",
+  "download": "下载"
 }

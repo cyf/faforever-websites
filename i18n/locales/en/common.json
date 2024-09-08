@@ -1,7 +1,12 @@
 {
+  "slogan": "A third-party music player that replaces Synology DS Audio client.",
+  "get": "Get FaForever",
+  "comments": "Mentioned across the globe",
   "latest": "Latest Version",
   "beta": "Beta",
   "store": "Store",
   "load-more": "Load More",
-  "more-versions": "More versions"
+  "more-versions": "More versions",
+  "features": "Features",
+  "download": "Download"
 }
