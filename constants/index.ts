@@ -40,4 +40,4 @@ export const systemExtensions: SystemExtensions = {
 };
 
 export const pageSize: number = 10;
-export const sitemapUrls = ["release"];
+export const sitemapUrls = ["download", "releases", "support"];
