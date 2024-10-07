@@ -44,7 +44,20 @@ export default function StoreCard({
               />
             </Link>
           </div>
-          <span className="mt-4 text-gray-600 dark:text-white/80">F-Droid</span>
+          {/* <span className="mt-4 text-gray-600 dark:text-white/80">Amazon (TODO)</span>
+          <div className="mb-2 mt-2 flex flex-col px-2">
+            <Link
+              target="_blank"
+              href="https://www.amazon.com/dp/XXXXXX"
+            >
+              <img
+                width="220"
+                alt="Get it on Amazon App Store"
+                src="https://raw.githubusercontent.com/cyf/faforever/main/docs/assets/Download-on-the-Amazon-App-Store.png"
+              />
+            </Link>
+          </div>
+          <span className="mt-4 text-gray-600 dark:text-white/80">F-Droid (TODO)</span>
           <div className="mb-2 mt-2 flex flex-col px-2">
             <Link
               target="_blank"
@@ -56,7 +69,7 @@ export default function StoreCard({
                 src="https://raw.githubusercontent.com/cyf/faforever/main/docs/assets/Download-on-the-F-Droid.svg"
               />
             </Link>
-          </div>
+          </div> */}
         </>
       ),
       macos: (
