@@ -216,6 +216,7 @@ export default function Home({
               pauseOnHover
               autoFill
               gradient
+              speed={25}
               gradientColor={theme === "light" ? "#ffffff" : "#020817"}
               className="mx-4"
             >
