@@ -26,16 +26,16 @@
     "dayjs": "^1.11.13",
     "flag-icons": "^7.2.3",
     "focus-trap-react": "^10.3.0",
-    "framer-motion": "^11.11.9",
-    "http-status": "^1.7.4",
-    "i18next": "^23.16.0",
+    "framer-motion": "^11.11.10",
+    "http-status": "^1.8.1",
+    "i18next": "^23.16.4",
     "i18next-browser-languagedetector": "^8.0.0",
     "i18next-resources-to-backend": "^1.2.1",
     "joi": "^17.13.3",
     "lucide-react": "^0.453.0",
     "ms": "^2.1.3",
     "muse-ui": "^4.0.0-alpha.5",
-    "next": "14.2.15",
+    "next": "14.2.16",
     "next-contentlayer2": "^0.5.1",
     "next-themes": "^0.3.0",
     "nextjs-toploader": "^3.7.15",
@@ -44,8 +44,8 @@
     "react-datalist-input": "^3.2.1",
     "react-dom": "18.3.1",
     "react-fast-marquee": "^1.6.5",
-    "react-hook-form": "^7.53.0",
-    "react-i18next": "^15.0.3",
+    "react-hook-form": "^7.53.1",
+    "react-i18next": "^15.1.0",
     "react-icons": "^5.3.0",
     "react-markdown": "^9.0.1",
     "react-rough-notation": "^1.0.5",
@@ -65,12 +65,12 @@
     "@tailwindcss/line-clamp": "^0.4.4",
     "@tailwindcss/typography": "^0.5.15",
     "@types/ms": "^0.7.34",
-    "@types/node": "18.19.55",
-    "@types/react": "18.3.11",
+    "@types/node": "18.19.59",
+    "@types/react": "18.3.12",
     "@types/react-dom": "18.3.1",
     "autoprefixer": "^10.4.20",
     "eslint": "8.57.1",
-    "eslint-config-next": "14.2.15",
+    "eslint-config-next": "14.2.16",
     "husky": "^9.1.6",
     "lint-staged": "^15.2.10",
     "postcss": "^8.4.47",
@@ -81,13 +81,13 @@
     "tailwindcss": "^3.4.14",
     "typescript": "5.6.3"
   },
-  "packageManager": "pnpm@9.12.1",
+  "packageManager": "pnpm@9.12.2",
   "engines": {
     "node": "^18"
   },
   "overrides": {
     "muse-ui": {
-      "react-hook-form": "^7.53.0"
+      "react-hook-form": "^7.53.1"
     }
   }
 }
